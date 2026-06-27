@@ -1,11 +1,18 @@
-/* 头像透明度 */
+/* 头像透明度 - 头像本身不变，只调外面区域 */
 .app-header-avatar {
-    opacity: 0.7;  /* 1 完全不透明，0 完全透明，0.7 即 70% 不透明 */
+    opacity: 1;
 }
 
-/* 背景图片 */
+/* 头像外部容器：半透明背景 + 毛玻璃 */
+.app-header {
+    background: rgba(36, 41, 48, 0.5);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+/* 全页面背景图 */
 body {
-    background-image: url("/background.jpg");
+    background-image: url("/background.jpg") !important;
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
