@@ -1,0 +1,5 @@
+theme = "m10c"
+title = "曰生岂几"
+[params]
+description = "我们需要dps7999！！！"
+  custom_css = ["css/custom.css"]

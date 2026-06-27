@@ -1,0 +1,13 @@
+/* 头像透明度 */
+.app-header-avatar {
+    opacity: 0.7;  /* 1 完全不透明，0 完全透明，0.7 即 70% 不透明 */
+}
+
+/* 背景图片 */
+body {
+    background-image: url("/background.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+}
