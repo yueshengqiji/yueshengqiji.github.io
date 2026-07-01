@@ -10,9 +10,16 @@
 		
 		
 		
-			<lastBuildDate>Sat, 27 Jun 2026 14:47:16 +0800</lastBuildDate>
+			<lastBuildDate>Wed, 01 Jul 2026 23:22:47 +0800</lastBuildDate>
 		
 			<atom:link href="//localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>一个小游戏</title>
+				<link>//localhost:1313/posts/%E4%B8%80%E4%B8%AA%E5%B0%8F%E6%B8%B8%E6%88%8F/</link>
+				<pubDate>Wed, 01 Jul 2026 23:22:47 +0800</pubDate>
+				<guid>//localhost:1313/posts/%E4%B8%80%E4%B8%AA%E5%B0%8F%E6%B8%B8%E6%88%8F/</guid>
+				<description>&lt;p&gt;#一个小游戏#&#xA;接下来是我对于昨天我写小游戏的时候产生的错误以及束手无策的地方的梳理&#xA;有关于我昨天写的小游戏有几点需要写下来&#xA;1，防御系统，为了防止完全打不动的情况发生我写的逻辑是被攻击的时候保底造&#xA;我以这个为伤害计算逻辑的时候是没写防御是怎么处理的也就造成了我的代码防御会对对方造成伤害的鬼畜局面，这个仅仅是敌方没有判断但是我方是判断的，哦不对是因为我代码写错了，槽&lt;/p&gt;&#xA;&lt;p&gt;if (playerSkill.equals(&amp;ldquo;defense&amp;rdquo;)) {&#xA;System.out.println(&amp;ldquo;你摆出了防御姿态，躲过了敌人的攻击！&amp;rdquo;);&#xA;// 玩家本回合不攻击，但敌人仍会攻击，可以减免部分伤害&#xA;enemyActualDamage = Math.max(0, enemy.getSkillDamage(enemySkill) - player.getDefense());&#xA;player.takeDamage(enemyActualDamage);&#xA;continue;&#xA;}&#xA;if (enemySkill.equals(&amp;ldquo;defense&amp;rdquo;)) {&#xA;System.out.println(&amp;ldquo;敌人摆出了防御姿态，妄想躲过了你的攻击！&amp;rdquo;);&#xA;enemyActualDamage = Math.max(0, enemy.getSkillDamage(enemySkill) - player.getDefense());&#xA;player.takeDamage(enemyActualDamage);&#xA;continue;&#xA;}&#xA;很明显是我偷懒直接复制黏贴上面代码导致的，而且我还发现我居然蠢到把怪的defense写成了defands让敌人从来没有成功防御过，很多地方都写错了&#xA;&lt;img src=&#34;C:%5CUsers%5Cas233%5CDesktop%5Chome_for_shinku%5Cphotos%5Cdefense_mistake.jpg&#34; alt=&#34;低级错误&#34;&gt;&#xA;可见非常之神奇&#xA;还有就是我没写技能的判断如果我写了strike和magic以及defense之外的任何行动都不会报错并且进行下去然后走一下我的伤害判断逻辑就会出现&lt;/p&gt;&#xA;&lt;p&gt;这样的神奇情况明明都没有这个技能但是却使用出来了我可以骄傲地说这是我游戏的包容性强&#xA;caocaocao很多都错了我开始重新编写战斗逻辑&#xA;//战斗循环&#xA;while (player.isAlive() &amp;amp;&amp;amp; enemy.isAlive()) {&#xA;// 玩家选择技能&#xA;System.out.println(&amp;ldquo;我的回合，豇豆！&amp;rdquo;);&#xA;String playerSkill = sc.nextLine();&#xA;while (true) {&#xA;if (playerSkill.equals(&amp;ldquo;magic&amp;rdquo;) || playerSkill.equals(&amp;ldquo;strike&amp;rdquo;) || playerSkill.equals(&amp;ldquo;defense&amp;rdquo;)) {&#xA;break;&#xA;} else {&#xA;System.out.println(&amp;ldquo;你的技能里没有这个，请重新选择&amp;rdquo;);&#xA;playerSkill = sc.nextLine();&#xA;}&#xA;}&lt;/p&gt;</description>
+			</item>
 			<item>
 				<title>My First Post</title>
 				<link>//localhost:1313/posts/game/</link>

@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <title>一个小游戏 // 曰生岂几</title>
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.163.3">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="John Doe" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="/css/main.min.e599ec6064dae48c5112dbd81c122e1ae97b0d4a5ee816312c70e41ff092e273.css" />
+    <link rel="stylesheet" href="/css/custom.css">
+    
+
+    
+    
+	<meta name="twitter:card" content="summary">
+	<meta name="twitter:title" content="一个小游戏">
+	<meta name="twitter:description" content="#一个小游戏# 接下来是我对于昨天我写小游戏的时候产生的错误以及束手无策的地方的梳理 有关于我昨天写的小游戏有几点需要写下来 1，防御系统，为了防止完全打不动的情况发生我写的逻辑是被攻击的时候保底造 我以这个为伤害计算逻辑的时候是没写防御是怎么处理的也就造成了我的代码防御会对对方造成伤害的鬼畜局面，这个仅仅是敌方没有判断但是我方是判断的，哦不对是因为我代码写错了，槽
+if (playerSkill.equals(“defense”)) { System.out.println(“你摆出了防御姿态，躲过了敌人的攻击！”); // 玩家本回合不攻击，但敌人仍会攻击，可以减免部分伤害 enemyActualDamage = Math.max(0, enemy.getSkillDamage(enemySkill) - player.getDefense()); player.takeDamage(enemyActualDamage); continue; } if (enemySkill.equals(“defense”)) { System.out.println(“敌人摆出了防御姿态，妄想躲过了你的攻击！”); enemyActualDamage = Math.max(0, enemy.getSkillDamage(enemySkill) - player.getDefense()); player.takeDamage(enemyActualDamage); continue; } 很明显是我偷懒直接复制黏贴上面代码导致的，而且我还发现我居然蠢到把怪的defense写成了defands让敌人从来没有成功防御过，很多地方都写错了 可见非常之神奇 还有就是我没写技能的判断如果我写了strike和magic以及defense之外的任何行动都不会报错并且进行下去然后走一下我的伤害判断逻辑就会出现
+这样的神奇情况明明都没有这个技能但是却使用出来了我可以骄傲地说这是我游戏的包容性强 caocaocao很多都错了我开始重新编写战斗逻辑 //战斗循环 while (player.isAlive() &amp;&amp; enemy.isAlive()) { // 玩家选择技能 System.out.println(“我的回合，豇豆！”); String playerSkill = sc.nextLine(); while (true) { if (playerSkill.equals(“magic”) || playerSkill.equals(“strike”) || playerSkill.equals(“defense”)) { break; } else { System.out.println(“你的技能里没有这个，请重新选择”); playerSkill = sc.nextLine(); } }">
+
+    <meta property="og:url" content="//localhost:1313/posts/%E4%B8%80%E4%B8%AA%E5%B0%8F%E6%B8%B8%E6%88%8F/">
+	<meta property="og:site_name" content="曰生岂几">
+	<meta property="og:title" content="一个小游戏">
+	<meta property="og:description" content="#一个小游戏# 接下来是我对于昨天我写小游戏的时候产生的错误以及束手无策的地方的梳理 有关于我昨天写的小游戏有几点需要写下来 1，防御系统，为了防止完全打不动的情况发生我写的逻辑是被攻击的时候保底造 我以这个为伤害计算逻辑的时候是没写防御是怎么处理的也就造成了我的代码防御会对对方造成伤害的鬼畜局面，这个仅仅是敌方没有判断但是我方是判断的，哦不对是因为我代码写错了，槽
+if (playerSkill.equals(“defense”)) { System.out.println(“你摆出了防御姿态，躲过了敌人的攻击！”); // 玩家本回合不攻击，但敌人仍会攻击，可以减免部分伤害 enemyActualDamage = Math.max(0, enemy.getSkillDamage(enemySkill) - player.getDefense()); player.takeDamage(enemyActualDamage); continue; } if (enemySkill.equals(“defense”)) { System.out.println(“敌人摆出了防御姿态，妄想躲过了你的攻击！”); enemyActualDamage = Math.max(0, enemy.getSkillDamage(enemySkill) - player.getDefense()); player.takeDamage(enemyActualDamage); continue; } 很明显是我偷懒直接复制黏贴上面代码导致的，而且我还发现我居然蠢到把怪的defense写成了defands让敌人从来没有成功防御过，很多地方都写错了 可见非常之神奇 还有就是我没写技能的判断如果我写了strike和magic以及defense之外的任何行动都不会报错并且进行下去然后走一下我的伤害判断逻辑就会出现
+这样的神奇情况明明都没有这个技能但是却使用出来了我可以骄傲地说这是我游戏的包容性强 caocaocao很多都错了我开始重新编写战斗逻辑 //战斗循环 while (player.isAlive() &amp;&amp; enemy.isAlive()) { // 玩家选择技能 System.out.println(“我的回合，豇豆！”); String playerSkill = sc.nextLine(); while (true) { if (playerSkill.equals(“magic”) || playerSkill.equals(“strike”) || playerSkill.equals(“defense”)) { break; } else { System.out.println(“你的技能里没有这个，请重新选择”); playerSkill = sc.nextLine(); } }">
+	<meta property="og:locale" content="en">
+	<meta property="og:type" content="article">
+		<meta property="article:section" content="posts">
+		<meta property="article:published_time" content="2026-07-01T23:22:47+08:00">
+		<meta property="article:modified_time" content="2026-07-01T23:22:47+08:00">
+
+<style>
+.app-container { color: #000000 !important; }
+.app-container h1, .app-container h2, .app-container h3, 
+.app-container h4, .app-container h5, .app-container h6 { color: #000000 !important; }
+</style>
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="/"><img class="app-header-avatar" src="/avatar.jpg" alt="John Doe" /></a>
+      <span class="app-header-title">曰生岂几</span>
+      <p>我们需要dps7999！！！</p>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">一个小游戏</h1>
+      <div class="post-meta">
+        <div>
+          <svg class="icon icon-calendar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>calendar</title><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+          Jul 1, 2026
+        </div>
+        <div>
+          <svg class="icon icon-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>clock</title><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+          2 min read
+        </div>
+      </div>
+    </header>
+    <div class="post-content">
+      <p>#一个小游戏#
+接下来是我对于昨天我写小游戏的时候产生的错误以及束手无策的地方的梳理
+有关于我昨天写的小游戏有几点需要写下来
+1，防御系统，为了防止完全打不动的情况发生我写的逻辑是被攻击的时候保底造
+我以这个为伤害计算逻辑的时候是没写防御是怎么处理的也就造成了我的代码防御会对对方造成伤害的鬼畜局面，这个仅仅是敌方没有判断但是我方是判断的，哦不对是因为我代码写错了，槽</p>
+<p>if (playerSkill.equals(&ldquo;defense&rdquo;)) {
+System.out.println(&ldquo;你摆出了防御姿态，躲过了敌人的攻击！&rdquo;);
+// 玩家本回合不攻击，但敌人仍会攻击，可以减免部分伤害
+enemyActualDamage = Math.max(0, enemy.getSkillDamage(enemySkill) - player.getDefense());
+player.takeDamage(enemyActualDamage);
+continue;
+}
+if (enemySkill.equals(&ldquo;defense&rdquo;)) {
+System.out.println(&ldquo;敌人摆出了防御姿态，妄想躲过了你的攻击！&rdquo;);
+enemyActualDamage = Math.max(0, enemy.getSkillDamage(enemySkill) - player.getDefense());
+player.takeDamage(enemyActualDamage);
+continue;
+}
+很明显是我偷懒直接复制黏贴上面代码导致的，而且我还发现我居然蠢到把怪的defense写成了defands让敌人从来没有成功防御过，很多地方都写错了
+<img src="C:%5CUsers%5Cas233%5CDesktop%5Chome_for_shinku%5Cphotos%5Cdefense_mistake.jpg" alt="低级错误">
+可见非常之神奇
+还有就是我没写技能的判断如果我写了strike和magic以及defense之外的任何行动都不会报错并且进行下去然后走一下我的伤害判断逻辑就会出现</p>
+<p>这样的神奇情况明明都没有这个技能但是却使用出来了我可以骄傲地说这是我游戏的包容性强
+caocaocao很多都错了我开始重新编写战斗逻辑
+//战斗循环
+while (player.isAlive() &amp;&amp; enemy.isAlive()) {
+// 玩家选择技能
+System.out.println(&ldquo;我的回合，豇豆！&rdquo;);
+String playerSkill = sc.nextLine();
+while (true) {
+if (playerSkill.equals(&ldquo;magic&rdquo;) || playerSkill.equals(&ldquo;strike&rdquo;) || playerSkill.equals(&ldquo;defense&rdquo;)) {
+break;
+} else {
+System.out.println(&ldquo;你的技能里没有这个，请重新选择&rdquo;);
+playerSkill = sc.nextLine();
+}
+}</p>
+<pre><code>    // 随机敌人出招
+    String[] skill = {&quot;magic&quot;, &quot;defense&quot;, &quot;strike&quot;};
+    String enemySkill = skill[rand.nextInt(skill.length)];
+    if (playerSkill.equals(&quot;defense&quot;) &amp;&amp; enemySkill.equals(&quot;defense&quot;)) {
+        System.out.println(&quot;你摆出了防御姿态，敌人也摆出了防御姿态，无事发生。&quot;);
+        continue;
+    }
+    if (playerSkill.equals(&quot;defense&quot;)) {
+        System.out.println(&quot;你摆出了防御姿态，躲过了敌人的攻击！&quot;);
+        int enemyRawDamage = enemy.getSkillDamage(enemySkill);
+        int reducedDamage = Math.max(0, enemyRawDamage - player.getDefense());
+        player.takeDamage(reducedDamage);
+        System.out.println(&quot;敌人使用了 &quot; + enemySkill + &quot;，但只造成了 &quot; + reducedDamage + &quot; 点伤害！&quot;);
+        System.out.println(&quot;你的HP：&quot; + player.getHp() + &quot; | 敌人HP：&quot; + enemy.getHp());
+        continue;
+    }
+    if (enemySkill.equals(&quot;defense&quot;)) {
+        System.out.println(&quot;敌人摆出了防御姿态！&quot;);
+        int playerRawDamage = player.getSkillDamage(playerSkill);
+        boolean isPlayerMagic = playerSkill.equals(&quot;magic&quot;);
+        int playerActualDamage;
+        if (isPlayerMagic) {
+            playerActualDamage = playerRawDamage; // 魔法无视防御
+        } else {
+            playerActualDamage = Math.max(1, playerRawDamage - enemy.getDefense()); // 物理被减免
+        }
+        enemy.takeDamage(playerActualDamage);
+        System.out.println(&quot;你使用了 &quot; + playerSkill + &quot;，但只造成了 &quot; + playerActualDamage + &quot; 点伤害！&quot;);
+        System.out.println(&quot;你的HP：&quot; + player.getHp() + &quot; | 敌人HP：&quot; + enemy.getHp());
+        continue;
+    }
+    // 显示战况
+    int playerRawDamage = player.getSkillDamage(playerSkill);
+    boolean isPlayerMagic = playerSkill.equals(&quot;magic&quot;);
+    int playerActualDamage = enemy.calculateActualDamage(playerRawDamage, isPlayerMagic);
+    enemy.takeDamage(playerActualDamage);
+    int enemyRawDamage = enemy.getSkillDamage(enemySkill);
+    boolean isEnemyMagic = enemySkill.equals(&quot;magic&quot;);
+    int enemyActualDamage = player.calculateActualDamage(enemyRawDamage, isEnemyMagic);
+    player.takeDamage(enemyActualDamage);
+    System.out.println(&quot;你使用了 &quot; + playerSkill + &quot;，造成 &quot; + playerActualDamage + &quot; 点伤害!!&quot;);
+    System.out.println(&quot;敌人使用了 &quot; + enemySkill + &quot;，造成 &quot; + enemyActualDamage + &quot; 点伤害!!&quot;);
+    System.out.println(&quot;你的HP：&quot; + player.getHp() + &quot; | 敌人HP：&quot; + enemy.getHp());
+}
+//判断胜负
+if (player.isAlive()) {
+    System.out.println(&quot;WIN！&quot;);
+} else {
+    System.out.println(&quot;YOU ARE DEAD...&quot;);
+}
+</code></pre>
+<p>这下对了
+<img src="C:%5CUsers%5Cas233%5CDesktop%5Chome_for_shinku%5Cphotos%5Cvictory.jpg" alt="低级错误"></p>
+<p>此外我还添加了之前没有的技能判断但是可塑性不高后面也许还会修改
+还有血量上限的设定治疗不会导致血量突破原本上限
+混乱的战斗逻辑也得到了修正之前我的玩家受伤判定会判定两次
+询问了ai表示我改的已经完成
+终于算是完成了一个没有bug的rpg小游戏</p>
+
+    </div>
+    <div class="post-footer">
+      
+    </div>
+  </article>
+
+    </main>
+  </body>
+</html>
