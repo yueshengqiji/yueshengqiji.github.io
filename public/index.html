@@ -31,6 +31,8 @@
 .app-container h1, .app-container h2, .app-container h3, 
 .app-container h4, .app-container h5, .app-container h6 { color: #000000 !important; }
 </style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css">
+<script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
   </head>
   <body>
     <header class="app-header">
@@ -75,5 +77,21 @@
   </article>
 
     </main>
+<div id="player"></div>
+<script>
+  const ap = new APlayer({
+    container: document.getElementById('player'),
+    fixed: true,  
+    audio: [
+      {
+        name: '歌曲名称',
+        artist: '艺术家',
+        url: '/music/Lydia Esrig,James Primate - Bio-Engineering.mp3',
+        cover: '/images/rain_world.jpg'
+      }
+    ]
+  });
+</script>
+<script src="https://cdn.jsdelivr.net/npm/canvas-nest.js@1.0.1/dist/canvas-nest.min.js"></script>
   </body>
 </html>

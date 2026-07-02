@@ -28,6 +28,13 @@
 		<meta property="article:published_time" content="2026-06-27T14:47:16+08:00">
 		<meta property="article:modified_time" content="2026-06-27T14:47:16+08:00">
 
+<style>
+.app-container { color: #000000 !important; }
+.app-container h1, .app-container h2, .app-container h3, 
+.app-container h4, .app-container h5, .app-container h6 { color: #000000 !important; }
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css">
+<script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
   </head>
   <body>
     <header class="app-header">
@@ -60,5 +67,21 @@
   </article>
 
     </main>
+<div id="player"></div>
+<script>
+  const ap = new APlayer({
+    container: document.getElementById('player'),
+    fixed: true,  
+    audio: [
+      {
+        name: '歌曲名称',
+        artist: '艺术家',
+        url: '音乐文件的直链地址.mp3',
+        cover: '封面图的直链地址.jpg'
+      }
+    ]
+  });
+</script>
+<script src="https://cdn.jsdelivr.net/npm/canvas-nest.js@1.0.1/dist/canvas-nest.min.js"></script>
   </body>
 </html>
