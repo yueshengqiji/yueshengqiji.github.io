@@ -1,5 +1,5 @@
-theme = "m10c"
+theme = "hugo-theme-m10c"
 title = "曰生岂几"
 [params]
-description = "我们需要dps7999！！！"
+description ="you went made a breakfast,you wouldn't get in the shower time ,so we are running late to school trouble,that's great." 
   custom_css = ["css/custom.css"]

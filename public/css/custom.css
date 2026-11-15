@@ -1,13 +1,113 @@
-/* 头像透明度 - 头像本身不变，只调外面区域 */
-.app-header-avatar {
-    opacity: 1;
+/* === 悬浮球头像+简介 === */
+
+/* 隐藏原主题侧栏，内容区不再左偏移 */
+.app-header {
+    display: none !important;
+}
+@media (min-width: 940px) {
+    .app-container {
+        margin-left: auto !important;
+        margin-right: auto !important;
+        max-width: 65rem !important;
+    }
 }
 
-/* 头像外部容器：半透明背景 + 毛玻璃 */
-.app-header {
-    background: rgba(36, 41, 48, 0.5);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+/* 悬浮球容器：固定左上角 */
+.floating-ball {
+    position: fixed;
+    top: 1rem;
+    left: 1rem;
+    z-index: 9999;
+}
+
+/* 悬浮球头像：小圆球 */
+.floating-ball-avatar {
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: 50%;
+    border: 0.2rem solid #FFD700;
+    cursor: pointer;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+    display: block;
+}
+.floating-ball-avatar:hover {
+    transform: scale(1.1);
+}
+
+/* 展开面板：默认隐藏 */
+.floating-ball-panel {
+    display: none;
+    position: absolute;
+    top: 4.2rem;
+    left: 0;
+    min-width: 16rem;
+    max-width: 20rem;
+    padding: 1.5rem;
+    background: rgba(36, 41, 48, 0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: 0.8rem;
+    border: 1px solid rgba(255,255,255,0.1);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+    text-align: center;
+}
+
+/* 点击后展开 */
+.floating-ball.expanded .floating-ball-panel {
+    display: block;
+    animation: fadeIn 0.2s ease;
+}
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* 面板内标题 */
+.floating-ball-title {
+    color: #fff;
+    display: block;
+    font-size: 1.4em;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+/* 面板内菜单 */
+.floating-ball-menu {
+    margin-bottom: 0.8rem;
+}
+.floating-ball-menu-item {
+    color: #57cc8a;
+    text-decoration: none;
+}
+.floating-ball-menu-item:hover {
+    color: #fff;
+}
+
+/* 面板内简介 */
+.floating-ball-desc {
+    color: #afbac4;
+    font-size: 0.9em;
+    margin-bottom: 0.8rem;
+}
+
+/* 面板内社交链接 */
+.floating-ball-social {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5em;
+    color: #afbac4;
+}
+.floating-ball-social a:not(:last-child) {
+    margin-right: 0.4em;
+}
+.floating-ball-social a {
+    color: #afbac4;
+    transition: color 0.3s;
+}
+.floating-ball-social a:hover {
+    color: #fff;
 }
 
 body {
@@ -36,8 +136,110 @@ body {
 .app-container a {
     color: #57cc8a;
 }
-<style>
-.app-container { color: #000000 !important; }
-.app-container h1, .app-container h2, .app-container h3, 
-.app-container h4, .app-container h5, .app-container h6 { color: #000000 !important; }
-</style>
+
+/* === 返回首页浮动按钮 === */
+.back-home-btn {
+    position: fixed;
+    bottom: 1.5rem;
+    left: 1.5rem;
+    z-index: 9998;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.5rem 1rem;
+    background: rgba(36, 41, 48, 0.85);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-radius: 2rem;
+    border: 1px solid rgba(87, 204, 138, 0.4);
+    color: #57cc8a;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+}
+.back-home-btn:hover {
+    background: rgba(87, 204, 138, 0.9);
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(87, 204, 138, 0.4);
+}
+
+/* === APlayer 毛玻璃皮肤 === */
+
+/* 吸底播放器主体 */
+.aplayer.aplayer-fixed .aplayer-body {
+    background: rgba(36, 41, 48, 0.85) !important;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-top: 1px solid rgba(87, 204, 138, 0.3);
+    box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.4);
+}
+
+/* 播放器图片区域圆角 */
+.aplayer.aplayer-fixed .aplayer-pic {
+    border-radius: 0 0 0 0;
+}
+
+/* 歌曲信息文字颜色 */
+.aplayer .aplayer-info .aplayer-music {
+    color: #afbac4;
+}
+.aplayer .aplayer-info .aplayer-music .aplayer-title {
+    color: #fff;
+}
+.aplayer .aplayer-info .aplayer-music .aplayer-author {
+    color: #afbac4;
+}
+
+/* 播放控制按钮颜色 */
+.aplayer .aplayer-info .aplayer-controller .aplayer-bar-wrap .aplayer-bar {
+    background: rgba(255, 255, 255, 0.2);
+}
+.aplayer .aplayer-info .aplayer-controller .aplayer-bar-wrap .aplayer-bar .aplayer-played {
+    background: #57cc8a !important;
+}
+.aplayer .aplayer-info .aplayer-controller .aplayer-bar-wrap .aplayer-bar .aplayer-thumb {
+    background: #57cc8a !important;
+}
+
+/* 控制按钮（播放/暂停等）默认色 */
+.aplayer .aplayer-info .aplayer-controller .aplayer-time,
+.aplayer .aplayer-info .aplayer-controller .aplayer-icon {
+    color: #afbac4;
+    fill: #afbac4;
+}
+.aplayer .aplayer-info .aplayer-controller .aplayer-icon:hover {
+    color: #57cc8a;
+    fill: #57cc8a;
+}
+
+/* 歌单列表背景 */
+.aplayer-list {
+    background: rgba(36, 41, 48, 0.92) !important;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-top: 1px solid rgba(87, 204, 138, 0.2);
+}
+
+/* 歌单列表项文字 */
+.aplayer-list ol li {
+    color: #afbac4 !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.05) !important;
+}
+.aplayer-list ol li:hover {
+    background: rgba(87, 204, 138, 0.1) !important;
+    color: #fff !important;
+}
+.aplayer-list ol li.aplayer-list-light {
+    background: rgba(87, 204, 138, 0.15) !important;
+    color: #57cc8a !important;
+}
+
+/* 歌单列表索引和作者 */
+.aplayer-list ol li .aplayer-list-index {
+    color: #57cc8a;
+}
+.aplayer-list ol li .aplayer-list-author {
+    color: #afbac4;
+}
