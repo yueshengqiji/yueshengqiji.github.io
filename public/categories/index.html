@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en">
-  <head>
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
     <title>Categories // 曰生岂几</title>
     <link rel="shortcut icon" href="/favicon.ico" />
     <meta charset="utf-8" />
@@ -10,7 +10,7 @@
     <meta name="description" content="" />
     <link rel="stylesheet" href="/css/main.min.5b1fcc8902588589c4767187402a3c29f8b8d7a6fdef6d9f8f77045bb0d14fee.css" />
     <link rel="stylesheet" href="/css/custom.css">
-    <link rel="alternate" type="application/rss+xml" href="https://yueshengqiji.github.io/categories/index.xml" title="曰生岂几">
+    <link rel="alternate" type="application/rss+xml" href="http://localhost:1313/categories/index.xml" title="曰生岂几">
     
 
     
@@ -19,7 +19,7 @@
 	<meta name="twitter:title" content="Categories">
 	<meta name="twitter:description" content="you went made a breakfast,you wouldn&#39;t get in the shower time ,so we are running late to school trouble,that&#39;s great.">
 
-    <meta property="og:url" content="https://yueshengqiji.github.io/categories/">
+    <meta property="og:url" content="http://localhost:1313/categories/">
 	<meta property="og:site_name" content="曰生岂几">
 	<meta property="og:title" content="Categories">
 	<meta property="og:description" content="you went made a breakfast,you wouldn&#39;t get in the shower time ,so we are running late to school trouble,that&#39;s great.">
@@ -41,6 +41,18 @@
       <div class="floating-ball-trigger" onclick="document.getElementById('floatingBall').classList.toggle('expanded');"><img class="floating-ball-avatar" src="/avatar.jpg" alt="John Doe" /></div>
       <div class="floating-ball-panel">
         <span class="floating-ball-title">曰生岂几</span>
+        <nav class="floating-ball-menu">
+            <a class="floating-ball-menu-item" href="/">Home</a>
+               - 
+            
+            <a class="floating-ball-menu-item" href="/posts/">曰生岂几</a>
+               - 
+            
+            <a class="floating-ball-menu-item" href="/shinku_journal/">shinku_journal</a>
+               - 
+            
+            <a class="floating-ball-menu-item" href="/tags/">Tags</a>
+        </nav>
         <p class="floating-ball-desc">you went made a breakfast,you wouldn&#39;t get in the shower time ,so we are running late to school trouble,that&#39;s great.</p>
       </div>
     </div>
@@ -65,6 +77,45 @@
   order="random"
   autoplay="false">
 </meting-js>
+<script>
+
+(function () {
+  var localSongs = [
+    {
+      name: 'Pictures of the Past',
+      artist: 'James Primate',
+      url: '/James Primate - Pictures of the Past.mp3',
+      cover: '/avatar.jpg'
+    },
+    {
+      name: 'Bio-Engineering',
+      artist: 'Lydia Esrig, James Primate',
+      url: '/music/Lydia Esrig,James Primate - Bio-Engineering.mp3',
+      cover: '/avatar.jpg'
+    }
+  ];
+  var attempts = 0;
+  function tryAddLocal() {
+    attempts++;
+    if (attempts > 60) return; 
+    var metingEl = document.querySelector('meting-js');
+    if (!metingEl) { setTimeout(tryAddLocal, 500); return; }
+    var ap = metingEl.aplayer || metingEl.ap || (window.aplayers && window.aplayers[0]);
+    if (!ap || !ap.list || !ap.list.audios) { setTimeout(tryAddLocal, 500); return; }
+    
+    var existingNames = ap.list.audios.map(function (a) { return a.name; });
+    var toAdd = localSongs.filter(function (s) { return existingNames.indexOf(s.name) === -1; });
+    if (toAdd.length > 0) {
+      ap.list.add(toAdd);
+    }
+  }
+  if (document.readyState === 'complete' || document.readyState === 'interactive') {
+    setTimeout(tryAddLocal, 1000);
+  } else {
+    document.addEventListener('DOMContentLoaded', function () { setTimeout(tryAddLocal, 1000); });
+  }
+})();
+</script>
 <script src="https://cdn.bootcdn.net/ajax/libs/canvas-nest.js/1.0.1/canvas-nest.min.js"></script>
   </body>
 </html>

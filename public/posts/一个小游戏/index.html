@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en">
-  <head>
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
     <title>一个小游戏 // 曰生岂几</title>
     <link rel="shortcut icon" href="/favicon.ico" />
     <meta charset="utf-8" />
@@ -19,7 +19,7 @@
 	<meta name="twitter:description" content="#一个小游戏# 接下来是我对于昨天我写小游戏的时候产生的错误以及束手无策的地方的梳理 有关于我昨天写的小游戏有几点需要写下来 1，防御系统，为了防止完全打不动的情况发生我写的逻辑是被攻击的时候保底造 我以这个为伤害计算逻辑的时候是没写防御是怎么处理的也就造成了我的代码防御会对对方造成伤害的鬼畜局面，这个仅仅是敌方没有判断但是我方是判断的，哦不对是因为我代码写错了，槽
 if (playerSkill.equals(“defense”)) { System.out.println(“你摆出了防御姿态，躲过了敌人的攻击！”); // 玩家本回合不攻击，但敌人仍会攻击，可以减免部分伤害 enemyActualDamage = Math.max(0, enemy.getSkillDamage(enemySkill) - player.getDefense()); player.takeDamage(enemyActualDamage); continue; } if (enemySkill.equals(“defense”)) { System.out.println(“敌人摆出了防御姿态，妄想躲过了你的攻击！”); enemyActualDamage = Math.max(0, enemy.getSkillDamage(enemySkill) - player.getDefense()); player.takeDamage(enemyActualDamage); continue; } 很明显是我偷懒直接复制黏贴上面代码导致的，而且我还发现我居然蠢到把怪的defense写成了defands让敌人从来没有成功防御过，很多地方都写错了 可见非常之神奇 还有就是我没写技能的判断如果我写了strike和magic以及defense之外的任何行动都不会报错并且进行下去然后走一下我的伤害判断逻辑就会出现 这样的神奇情况明明都没有这个技能但是却使用出来了我可以骄傲地说这是我游戏的包容性强 caocaocao很多都错了我开始重新编写战斗逻辑 //战斗循环 while (player.isAlive() &amp;&amp; enemy.isAlive()) { // 玩家选择技能 System.out.println(“我的回合，豇豆！”); String playerSkill = sc.nextLine(); while (true) { if (playerSkill.equals(“magic”) || playerSkill.equals(“strike”) || playerSkill.equals(“defense”)) { break; } else { System.out.println(“你的技能里没有这个，请重新选择”); playerSkill = sc.nextLine(); } }">
 
-    <meta property="og:url" content="https://yueshengqiji.github.io/posts/%E4%B8%80%E4%B8%AA%E5%B0%8F%E6%B8%B8%E6%88%8F/">
+    <meta property="og:url" content="http://localhost:1313/posts/%E4%B8%80%E4%B8%AA%E5%B0%8F%E6%B8%B8%E6%88%8F/">
 	<meta property="og:site_name" content="曰生岂几">
 	<meta property="og:title" content="一个小游戏">
 	<meta property="og:description" content="#一个小游戏# 接下来是我对于昨天我写小游戏的时候产生的错误以及束手无策的地方的梳理 有关于我昨天写的小游戏有几点需要写下来 1，防御系统，为了防止完全打不动的情况发生我写的逻辑是被攻击的时候保底造 我以这个为伤害计算逻辑的时候是没写防御是怎么处理的也就造成了我的代码防御会对对方造成伤害的鬼畜局面，这个仅仅是敌方没有判断但是我方是判断的，哦不对是因为我代码写错了，槽
@@ -45,6 +45,18 @@ if (playerSkill.equals(“defense”)) { System.out.println(“你摆出了防�
       <div class="floating-ball-trigger" onclick="document.getElementById('floatingBall').classList.toggle('expanded');"><img class="floating-ball-avatar" src="/avatar.jpg" alt="John Doe" /></div>
       <div class="floating-ball-panel">
         <span class="floating-ball-title">曰生岂几</span>
+        <nav class="floating-ball-menu">
+            <a class="floating-ball-menu-item" href="/">Home</a>
+               - 
+            
+            <a class="floating-ball-menu-item" href="/posts/">曰生岂几</a>
+               - 
+            
+            <a class="floating-ball-menu-item" href="/shinku_journal/">shinku_journal</a>
+               - 
+            
+            <a class="floating-ball-menu-item" href="/tags/">Tags</a>
+        </nav>
         <p class="floating-ball-desc">you went made a breakfast,you wouldn&#39;t get in the shower time ,so we are running late to school trouble,that&#39;s great.</p>
       </div>
     </div>
@@ -179,6 +191,45 @@ if (player.isAlive()) {
   order="random"
   autoplay="false">
 </meting-js>
+<script>
+
+(function () {
+  var localSongs = [
+    {
+      name: 'Pictures of the Past',
+      artist: 'James Primate',
+      url: '/James Primate - Pictures of the Past.mp3',
+      cover: '/avatar.jpg'
+    },
+    {
+      name: 'Bio-Engineering',
+      artist: 'Lydia Esrig, James Primate',
+      url: '/music/Lydia Esrig,James Primate - Bio-Engineering.mp3',
+      cover: '/avatar.jpg'
+    }
+  ];
+  var attempts = 0;
+  function tryAddLocal() {
+    attempts++;
+    if (attempts > 60) return; 
+    var metingEl = document.querySelector('meting-js');
+    if (!metingEl) { setTimeout(tryAddLocal, 500); return; }
+    var ap = metingEl.aplayer || metingEl.ap || (window.aplayers && window.aplayers[0]);
+    if (!ap || !ap.list || !ap.list.audios) { setTimeout(tryAddLocal, 500); return; }
+    
+    var existingNames = ap.list.audios.map(function (a) { return a.name; });
+    var toAdd = localSongs.filter(function (s) { return existingNames.indexOf(s.name) === -1; });
+    if (toAdd.length > 0) {
+      ap.list.add(toAdd);
+    }
+  }
+  if (document.readyState === 'complete' || document.readyState === 'interactive') {
+    setTimeout(tryAddLocal, 1000);
+  } else {
+    document.addEventListener('DOMContentLoaded', function () { setTimeout(tryAddLocal, 1000); });
+  }
+})();
+</script>
 <script src="https://cdn.bootcdn.net/ajax/libs/canvas-nest.js/1.0.1/canvas-nest.min.js"></script>
   </body>
 </html>

@@ -73,6 +73,45 @@
   order="random"
   autoplay="false">
 </meting-js>
+<script>
+// 方案C：混合模式 —— 在网易云歌单加载完成后，追加自托管 mp3 到播放列表
+(function () {
+  var localSongs = [
+    {
+      name: 'Pictures of the Past',
+      artist: 'James Primate',
+      url: '/James Primate - Pictures of the Past.mp3',
+      cover: '/avatar.jpg'
+    },
+    {
+      name: 'Bio-Engineering',
+      artist: 'Lydia Esrig, James Primate',
+      url: '/music/Lydia Esrig,James Primate - Bio-Engineering.mp3',
+      cover: '/avatar.jpg'
+    }
+  ];
+  var attempts = 0;
+  function tryAddLocal() {
+    attempts++;
+    if (attempts > 60) return; // 最多等30秒
+    var metingEl = document.querySelector('meting-js');
+    if (!metingEl) { setTimeout(tryAddLocal, 500); return; }
+    var ap = metingEl.aplayer || metingEl.ap || (window.aplayers && window.aplayers[0]);
+    if (!ap || !ap.list || !ap.list.audios) { setTimeout(tryAddLocal, 500); return; }
+    // 确保不重复添加
+    var existingNames = ap.list.audios.map(function (a) { return a.name; });
+    var toAdd = localSongs.filter(function (s) { return existingNames.indexOf(s.name) === -1; });
+    if (toAdd.length > 0) {
+      ap.list.add(toAdd);
+    }
+  }
+  if (document.readyState === 'complete' || document.readyState === 'interactive') {
+    setTimeout(tryAddLocal, 1000);
+  } else {
+    document.addEventListener('DOMContentLoaded', function () { setTimeout(tryAddLocal, 1000); });
+  }
+})();
+</script>
 <script src="https://cdn.bootcdn.net/ajax/libs/canvas-nest.js/1.0.1/canvas-nest.min.js"></script>
   </body>
 </html>

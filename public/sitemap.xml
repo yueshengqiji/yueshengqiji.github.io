@@ -2,23 +2,25 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://yueshengqiji.github.io/posts/</loc>
+    <loc>http://localhost:1313/posts/</loc>
     <lastmod>2026-07-10T23:24:13+08:00</lastmod>
   </url><url>
-    <loc>https://yueshengqiji.github.io/posts/review/</loc>
+    <loc>http://localhost:1313/posts/review/</loc>
     <lastmod>2026-07-10T23:24:13+08:00</lastmod>
   </url><url>
-    <loc>https://yueshengqiji.github.io/</loc>
+    <loc>http://localhost:1313/</loc>
     <lastmod>2026-07-10T23:24:13+08:00</lastmod>
   </url><url>
-    <loc>https://yueshengqiji.github.io/posts/%E4%B8%80%E4%B8%AA%E5%B0%8F%E6%B8%B8%E6%88%8F/</loc>
+    <loc>http://localhost:1313/posts/%E4%B8%80%E4%B8%AA%E5%B0%8F%E6%B8%B8%E6%88%8F/</loc>
     <lastmod>2026-07-01T23:22:47+08:00</lastmod>
   </url><url>
-    <loc>https://yueshengqiji.github.io/posts/game/</loc>
+    <loc>http://localhost:1313/posts/game/</loc>
     <lastmod>2026-06-27T14:47:16+08:00</lastmod>
   </url><url>
-    <loc>https://yueshengqiji.github.io/categories/</loc>
+    <loc>http://localhost:1313/categories/</loc>
   </url><url>
-    <loc>https://yueshengqiji.github.io/tags/</loc>
+    <loc>http://localhost:1313/shinku_journal/</loc>
+  </url><url>
+    <loc>http://localhost:1313/tags/</loc>
   </url>
 </urlset>
