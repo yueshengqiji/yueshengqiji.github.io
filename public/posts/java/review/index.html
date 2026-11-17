@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Review // 曰生岂几</title>
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.169.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="曰生岂几" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="/css/main.min.5b1fcc8902588589c4767187402a3c29f8b8d7a6fdef6d9f8f77045bb0d14fee.css" />
+    <link rel="stylesheet" href="/css/custom.css">
+    
+
+    
+    
+	<meta name="twitter:card" content="summary">
+	<meta name="twitter:title" content="Review">
+	<meta name="twitter:description" content="我写这个游戏的过程中，犯过的错误几乎覆盖了从基础语法到设计思想的每一个层面。我把它们梳理成一份完整的错误清单，按发生阶段分类，方便 以后回顾。 第一阶段：基础语法与概念理解 错误具体表现纠正构造函数写错public void charater(…) 加了个 void，导致构造方法变成了普通方法构造方法不能有返回类型，连 void 都不能写构造方法名与类名不一致public void charater(…) 的 charater 不是类名 Character构造方法名必须和类名一模一样方法调用时缺少参数health.takeDamage() 无参调用，但方法定义需要 int 参数调用方法时必须按定义时的参数列表传入对应值main 方法缺少 public 或 static多次写成 void main(String[] args) 或 static void main必须是 public static void main(String[] args)字符串比较用 ==if (name == “sakiro”)必须用 equals() 比较字符串内容数组初始化语法错误new String[“Anon”,“Soyo”]应该用 new String[]{“Anon”,“Soyo”} 或直接 {“Anon”,“Soyo”} 第二阶段：面向对象设计与继承 错误具体表现纠正类和接口混淆class clxc implements Bang 试图用 implements 实现一个类implements 只能用于接口，类用 extends 继承重写时参数列表不一致void miko(int speend) 试图重写父类的 void miko()，但加了参数重写时参数列表必须与父类方法完全一致内部类访问权限理解错误试图在其他文件直接 new MyGO()，但 MyGO 是非静态内部类非静态内部类必须通过外部类实例创建：band.new MyGO()顶级类与文件名不一致类名 cat（小写）和文件名 Cat.java（大写）不匹配public 类名必须和文件名完全一致private 字段直接访问外部试图 health.hp 直接读取血量应该通过 getHp() 方法访问static 字段误用class Character { public static String name; } 导致所有角色共享名字实例字段不应该加 staticfinal 字段未初始化enum Skill 里的 baseDamage 和 isMagical 最初没有构造方法final 字段必须在构造方法中初始化 第三阶段：战斗逻辑与游戏规则 错误具体表现纠正防御判断顺序错误先计算了伤害并扣了血，然后才判断 if (playerSkill.equals(“defense”))必须先判断防御，再计算伤害防御分支中伤害计算对象搞反玩家防御时，拿玩家技能的伤害值（0）去算敌人的防御减免应该用敌人的攻击力去减玩家的防御值敌人防御时调用了错误的 calculateActualDamage敌人防御时，调用的是 player.calculateActualDamage(…)，用的是玩家的防御值应该调用 enemy.calculateActualDamage(…)，用敌人的防御值减免玩家的攻击力敌方技能名拼写错误技能数组里写的是 “defends”，但判断条件用的是 “defense&#34;拼写必须一致while 循环条件写反int i = 0; while (i &gt; 4) 导致循环体一次都不执行应该是 while (i &lt; 4)治疗被 if (damage &gt; 0) 挡住takeDamage 里 if (damage &gt; 0) 导致负数伤害（治疗）无效去掉 if 条件，改用 hp -= damage; if (hp &gt; maxHp) hp = maxHp; 第四阶段：重构与枚举设计 错误具体表现纠正已经引入枚举，仍然用字符串比较playerSkill.equals(“defense”) 和 playerSkill.equals(“magic”) 残留应该用 playerSkill == Skill.DEFENSE 和 playerSkill.isMagical()getSkillDamage 方法仍然用字符串比较枚举if (skill.equals(“strike”)) 传入的明明是 Skill 类型删除该方法，直接用 skill.getBaseDamage()保留了无用字段和方法strikedamage、magicdamage 字段和 getSkillDamage 方法在重构后不再需要及时清理未使用的 Map 变量Map&lt;String, Character&gt; map = new HashMap&lt;&gt;(); 从未被使用删除注释掉的旧代码没删防御分支注释块残留删除 第五阶段：工具链与环境配置 错误具体表现纠正IDEA 里点“构建”而不是“构建工件”导致没有生成 JAR 文件必须点 Build → Build Artifacts → BuildPython 版本兼容性问题用 Python 3.14 安装 RVC 依赖时 numba 不支持降级到 Python 3.10 并创建虚拟环境网络超时导致 pip install 失败Read timed out换国内镜像源或开启 VPNjpackage 找不到环境变量没配好使用完整路径 C:\Users\as233.jdks\openjdk-26.0.1\bin\jpackage.exe 从这些错误里收获的核心能力 1.调试能力： 从“防御变成攻击”、“敌人从未防御”这种逻辑错误里学会了逐行推演代码执行顺序。 2.类型安全意识： 从无数个 equals 拼写错误里理解了枚举和字符串的本质区别。 3.设计思维： 从“一个文件写所有类”进化到“用枚举集中管理技能和角色”。 4.工具链经验： 从 pip install 超时、Python 版本冲突、JAR 构建失败里积累了真实项目部署经验。 5.代码清理习惯： 学会了重构后删除无用字段、方法和注释。">
+
+    <meta property="og:url" content="https://example.org/posts/java/review/">
+	<meta property="og:site_name" content="曰生岂几">
+	<meta property="og:title" content="Review">
+	<meta property="og:description" content="我写这个游戏的过程中，犯过的错误几乎覆盖了从基础语法到设计思想的每一个层面。我把它们梳理成一份完整的错误清单，按发生阶段分类，方便 以后回顾。 第一阶段：基础语法与概念理解 错误具体表现纠正构造函数写错public void charater(…) 加了个 void，导致构造方法变成了普通方法构造方法不能有返回类型，连 void 都不能写构造方法名与类名不一致public void charater(…) 的 charater 不是类名 Character构造方法名必须和类名一模一样方法调用时缺少参数health.takeDamage() 无参调用，但方法定义需要 int 参数调用方法时必须按定义时的参数列表传入对应值main 方法缺少 public 或 static多次写成 void main(String[] args) 或 static void main必须是 public static void main(String[] args)字符串比较用 ==if (name == “sakiro”)必须用 equals() 比较字符串内容数组初始化语法错误new String[“Anon”,“Soyo”]应该用 new String[]{“Anon”,“Soyo”} 或直接 {“Anon”,“Soyo”} 第二阶段：面向对象设计与继承 错误具体表现纠正类和接口混淆class clxc implements Bang 试图用 implements 实现一个类implements 只能用于接口，类用 extends 继承重写时参数列表不一致void miko(int speend) 试图重写父类的 void miko()，但加了参数重写时参数列表必须与父类方法完全一致内部类访问权限理解错误试图在其他文件直接 new MyGO()，但 MyGO 是非静态内部类非静态内部类必须通过外部类实例创建：band.new MyGO()顶级类与文件名不一致类名 cat（小写）和文件名 Cat.java（大写）不匹配public 类名必须和文件名完全一致private 字段直接访问外部试图 health.hp 直接读取血量应该通过 getHp() 方法访问static 字段误用class Character { public static String name; } 导致所有角色共享名字实例字段不应该加 staticfinal 字段未初始化enum Skill 里的 baseDamage 和 isMagical 最初没有构造方法final 字段必须在构造方法中初始化 第三阶段：战斗逻辑与游戏规则 错误具体表现纠正防御判断顺序错误先计算了伤害并扣了血，然后才判断 if (playerSkill.equals(“defense”))必须先判断防御，再计算伤害防御分支中伤害计算对象搞反玩家防御时，拿玩家技能的伤害值（0）去算敌人的防御减免应该用敌人的攻击力去减玩家的防御值敌人防御时调用了错误的 calculateActualDamage敌人防御时，调用的是 player.calculateActualDamage(…)，用的是玩家的防御值应该调用 enemy.calculateActualDamage(…)，用敌人的防御值减免玩家的攻击力敌方技能名拼写错误技能数组里写的是 “defends”，但判断条件用的是 “defense&#34;拼写必须一致while 循环条件写反int i = 0; while (i &gt; 4) 导致循环体一次都不执行应该是 while (i &lt; 4)治疗被 if (damage &gt; 0) 挡住takeDamage 里 if (damage &gt; 0) 导致负数伤害（治疗）无效去掉 if 条件，改用 hp -= damage; if (hp &gt; maxHp) hp = maxHp; 第四阶段：重构与枚举设计 错误具体表现纠正已经引入枚举，仍然用字符串比较playerSkill.equals(“defense”) 和 playerSkill.equals(“magic”) 残留应该用 playerSkill == Skill.DEFENSE 和 playerSkill.isMagical()getSkillDamage 方法仍然用字符串比较枚举if (skill.equals(“strike”)) 传入的明明是 Skill 类型删除该方法，直接用 skill.getBaseDamage()保留了无用字段和方法strikedamage、magicdamage 字段和 getSkillDamage 方法在重构后不再需要及时清理未使用的 Map 变量Map&lt;String, Character&gt; map = new HashMap&lt;&gt;(); 从未被使用删除注释掉的旧代码没删防御分支注释块残留删除 第五阶段：工具链与环境配置 错误具体表现纠正IDEA 里点“构建”而不是“构建工件”导致没有生成 JAR 文件必须点 Build → Build Artifacts → BuildPython 版本兼容性问题用 Python 3.14 安装 RVC 依赖时 numba 不支持降级到 Python 3.10 并创建虚拟环境网络超时导致 pip install 失败Read timed out换国内镜像源或开启 VPNjpackage 找不到环境变量没配好使用完整路径 C:\Users\as233.jdks\openjdk-26.0.1\bin\jpackage.exe 从这些错误里收获的核心能力 1.调试能力： 从“防御变成攻击”、“敌人从未防御”这种逻辑错误里学会了逐行推演代码执行顺序。 2.类型安全意识： 从无数个 equals 拼写错误里理解了枚举和字符串的本质区别。 3.设计思维： 从“一个文件写所有类”进化到“用枚举集中管理技能和角色”。 4.工具链经验： 从 pip install 超时、Python 版本冲突、JAR 构建失败里积累了真实项目部署经验。 5.代码清理习惯： 学会了重构后删除无用字段、方法和注释。">
+	<meta property="og:locale" content="en">
+	<meta property="og:type" content="article">
+		<meta property="article:section" content="posts">
+		<meta property="article:published_time" content="2026-07-10T23:24:13+08:00">
+		<meta property="article:modified_time" content="2026-07-10T23:24:13+08:00">
+
+<style>
+.app-container { color: #000000 !important; }
+.app-container h1, .app-container h2, .app-container h3, 
+.app-container h4, .app-container h5, .app-container h6 { color: #000000 !important; }
+</style>
+<link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/aplayer/1.10.1/APlayer.min.css">
+<script src="https://cdn.bootcdn.net/ajax/libs/aplayer/1.10.1/APlayer.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/meting/2.0.1/Meting.min.js"></script>
+  </head>
+  <body>
+    
+    <div class="floating-ball" id="floatingBall">
+      <div class="floating-ball-trigger" onclick="document.getElementById('floatingBall').classList.toggle('expanded');"><img class="floating-ball-avatar" src="/avatar.jpg" alt="曰生岂几" /></div>
+      <div class="floating-ball-panel">
+        <span class="floating-ball-title">曰生岂几</span>
+        <nav class="floating-ball-menu">
+            <a class="floating-ball-menu-item" href="/">Home</a>
+               - 
+            
+            <a class="floating-ball-menu-item" href="/posts/">曰生岂几</a>
+               - 
+            
+            <a class="floating-ball-menu-item" href="/shinku_journal/">shinku_journal</a>
+               - 
+            
+            <a class="floating-ball-menu-item" href="/tags/">Tags</a>
+        </nav>
+        <p class="floating-ball-desc">you went made a breakfast,you wouldn&#39;t get in the shower time ,so we are running late to school trouble,that&#39;s great.</p>
+      </div>
+    </div>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">Review</h1>
+      <div class="post-meta">
+        <div>
+          <svg class="icon icon-calendar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>calendar</title><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+          Jul 10, 2026
+        </div>
+        <div>
+          <svg class="icon icon-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>clock</title><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+          2 min read
+        </div>
+      </div>
+    </header>
+    <div class="post-content">
+      <h2 id="我写这个游戏的过程中犯过的错误几乎覆盖了从基础语法到设计思想的每一个层面我把它们梳理成一份完整的错误清单按发生阶段分类方便-以后回顾">我写这个游戏的过程中，犯过的错误几乎覆盖了从基础语法到设计思想的每一个层面。我把它们梳理成一份完整的错误清单，按发生阶段分类，方便 以后回顾。</h2>
+<h2 id="错误具体表现纠正构造函数写错public-void-charater-加了个-void导致构造方法变成了普通方法构造方法不能有返回类型连-void-都不能写构造方法名与类名不一致public-void-charater-的-charater-不是类名-character构造方法名必须和类名一模一样方法调用时缺少参数healthtakedamage-无参调用但方法定义需要-int-参数调用方法时必须按定义时的参数列表传入对应值main-方法缺少-public-或-static多次写成-void-mainstring-args-或-static-void-main必须是-public-static-void-mainstring-args字符串比较用-if-name--sakiro必须用-equals-比较字符串内容数组初始化语法错误new-stringanonsoyo应该用-new-stringanonsoyo-或直接-anonsoyo">第一阶段：基础语法与概念理解
+错误具体表现纠正构造函数写错public void charater(&hellip;) 加了个 void，导致构造方法变成了普通方法构造方法不能有返回类型，连 void 都不能写构造方法名与类名不一致public void charater(&hellip;) 的 charater 不是类名 Character构造方法名必须和类名一模一样方法调用时缺少参数health.takeDamage() 无参调用，但方法定义需要 int 参数调用方法时必须按定义时的参数列表传入对应值main 方法缺少 public 或 static多次写成 void main(String[] args) 或 static void main必须是 public static void main(String[] args)字符串比较用 ==if (name == &ldquo;sakiro&rdquo;)必须用 equals() 比较字符串内容数组初始化语法错误new String[&ldquo;Anon&rdquo;,&ldquo;Soyo&rdquo;]应该用 new String[]{&ldquo;Anon&rdquo;,&ldquo;Soyo&rdquo;} 或直接 {&ldquo;Anon&rdquo;,&ldquo;Soyo&rdquo;}</h2>
+<h2 id="错误具体表现纠正类和接口混淆class-clxc-implements-bang-试图用-implements-实现一个类implements-只能用于接口类用-extends-继承重写时参数列表不一致void-mikoint-speend-试图重写父类的-void-miko但加了参数重写时参数列表必须与父类方法完全一致内部类访问权限理解错误试图在其他文件直接-new-mygo但-mygo-是非静态内部类非静态内部类必须通过外部类实例创建bandnew-mygo顶级类与文件名不一致类名-cat小写和文件名-catjava大写不匹配public-类名必须和文件名完全一致private-字段直接访问外部试图-healthhp-直接读取血量应该通过-gethp-方法访问static-字段误用class-character--public-static-string-name--导致所有角色共享名字实例字段不应该加-staticfinal-字段未初始化enum-skill-里的-basedamage-和-ismagical-最初没有构造方法final-字段必须在构造方法中初始化">第二阶段：面向对象设计与继承
+错误具体表现纠正类和接口混淆class clxc implements Bang 试图用 implements 实现一个类implements 只能用于接口，类用 extends 继承重写时参数列表不一致void miko(int speend) 试图重写父类的 void miko()，但加了参数重写时参数列表必须与父类方法完全一致内部类访问权限理解错误试图在其他文件直接 new MyGO()，但 MyGO 是非静态内部类非静态内部类必须通过外部类实例创建：band.new MyGO()顶级类与文件名不一致类名 cat（小写）和文件名 Cat.java（大写）不匹配public 类名必须和文件名完全一致private 字段直接访问外部试图 health.hp 直接读取血量应该通过 getHp() 方法访问static 字段误用class Character { public static String name; } 导致所有角色共享名字实例字段不应该加 staticfinal 字段未初始化enum Skill 里的 baseDamage 和 isMagical 最初没有构造方法final 字段必须在构造方法中初始化</h2>
+<h2 id="错误具体表现纠正防御判断顺序错误先计算了伤害并扣了血然后才判断-if-playerskillequalsdefense必须先判断防御再计算伤害防御分支中伤害计算对象搞反玩家防御时拿玩家技能的伤害值0去算敌人的防御减免应该用敌人的攻击力去减玩家的防御值敌人防御时调用了错误的-calculateactualdamage敌人防御时调用的是-playercalculateactualdamage用的是玩家的防御值应该调用-enemycalculateactualdamage用敌人的防御值减免玩家的攻击力敌方技能名拼写错误技能数组里写的是-defends但判断条件用的是-defense拼写必须一致while-循环条件写反int-i--0-while-i--4-导致循环体一次都不执行应该是-while-i--4治疗被-if-damage--0-挡住takedamage-里-if-damage--0-导致负数伤害治疗无效去掉-if-条件改用-hp---damage-if-hp--maxhp-hp--maxhp">第三阶段：战斗逻辑与游戏规则
+错误具体表现纠正防御判断顺序错误先计算了伤害并扣了血，然后才判断 if (playerSkill.equals(&ldquo;defense&rdquo;))必须先判断防御，再计算伤害防御分支中伤害计算对象搞反玩家防御时，拿玩家技能的伤害值（0）去算敌人的防御减免应该用敌人的攻击力去减玩家的防御值敌人防御时调用了错误的 calculateActualDamage敌人防御时，调用的是 player.calculateActualDamage(&hellip;)，用的是玩家的防御值应该调用 enemy.calculateActualDamage(&hellip;)，用敌人的防御值减免玩家的攻击力敌方技能名拼写错误技能数组里写的是 &ldquo;defends&rdquo;，但判断条件用的是 &ldquo;defense&quot;拼写必须一致while 循环条件写反int i = 0; while (i &gt; 4) 导致循环体一次都不执行应该是 while (i &lt; 4)治疗被 if (damage &gt; 0) 挡住takeDamage 里 if (damage &gt; 0) 导致负数伤害（治疗）无效去掉 if 条件，改用 hp -= damage; if (hp &gt; maxHp) hp = maxHp;</h2>
+<h2 id="错误具体表现纠正已经引入枚举仍然用字符串比较playerskillequalsdefense-和-playerskillequalsmagic-残留应该用-playerskill--skilldefense-和-playerskillismagicalgetskilldamage-方法仍然用字符串比较枚举if-skillequalsstrike-传入的明明是-skill-类型删除该方法直接用-skillgetbasedamage保留了无用字段和方法strikedamagemagicdamage-字段和-getskilldamage-方法在重构后不再需要及时清理未使用的-map-变量mapstring-character-map--new-hashmap-从未被使用删除注释掉的旧代码没删防御分支注释块残留删除">第四阶段：重构与枚举设计
+错误具体表现纠正已经引入枚举，仍然用字符串比较playerSkill.equals(&ldquo;defense&rdquo;) 和 playerSkill.equals(&ldquo;magic&rdquo;) 残留应该用 playerSkill == Skill.DEFENSE 和 playerSkill.isMagical()getSkillDamage 方法仍然用字符串比较枚举if (skill.equals(&ldquo;strike&rdquo;)) 传入的明明是 Skill 类型删除该方法，直接用 skill.getBaseDamage()保留了无用字段和方法strikedamage、magicdamage 字段和 getSkillDamage 方法在重构后不再需要及时清理未使用的 Map 变量Map&lt;String, Character&gt; map = new HashMap&lt;&gt;(); 从未被使用删除注释掉的旧代码没删防御分支注释块残留删除</h2>
+<h2 id="错误具体表现纠正idea-里点构建而不是构建工件导致没有生成-jar-文件必须点-build--build-artifacts--buildpython-版本兼容性问题用-python-314-安装-rvc-依赖时-numba-不支持降级到-python-310-并创建虚拟环境网络超时导致-pip-install-失败read-timed-out换国内镜像源或开启-vpnjpackage-找不到环境变量没配好使用完整路径-cusersas233jdksopenjdk-2601binjpackageexe">第五阶段：工具链与环境配置
+错误具体表现纠正IDEA 里点“构建”而不是“构建工件”导致没有生成 JAR 文件必须点 Build → Build Artifacts → BuildPython 版本兼容性问题用 Python 3.14 安装 RVC 依赖时 numba 不支持降级到 Python 3.10 并创建虚拟环境网络超时导致 pip install 失败Read timed out换国内镜像源或开启 VPNjpackage 找不到环境变量没配好使用完整路径 C:\Users\as233.jdks\openjdk-26.0.1\bin\jpackage.exe</h2>
+<p>从这些错误里收获的核心能力
+1.调试能力： 从“防御变成攻击”、“敌人从未防御”这种逻辑错误里学会了逐行推演代码执行顺序。
+2.类型安全意识： 从无数个 equals 拼写错误里理解了枚举和字符串的本质区别。
+3.设计思维： 从“一个文件写所有类”进化到“用枚举集中管理技能和角色”。
+4.工具链经验： 从 pip install 超时、Python 版本冲突、JAR 构建失败里积累了真实项目部署经验。
+5.代码清理习惯： 学会了重构后删除无用字段、方法和注释。</p>
+
+    </div>
+    <div class="post-footer">
+      
+    </div>
+  </article>
+
+    </main>
+    <a href="/" class="back-home-btn" title="返回首页">← 首页</a>
+<meting-js
+  server="netease"
+  type="playlist"
+  id="18597791155"
+  fixed="true"
+  theme="#57cc8a"
+  list-folded="true"
+  order="random"
+  autoplay="false">
+</meting-js>
+<script>
+
+(function () {
+  var localSongs = [
+    {
+      name: 'Pictures of the Past',
+      artist: 'James Primate',
+      url: '/James Primate - Pictures of the Past.mp3',
+      cover: '/avatar.jpg'
+    },
+    {
+      name: 'Bio-Engineering',
+      artist: 'Lydia Esrig, James Primate',
+      url: '/music/Lydia Esrig,James Primate - Bio-Engineering.mp3',
+      cover: '/avatar.jpg'
+    }
+  ];
+  var attempts = 0;
+  function tryAddLocal() {
+    attempts++;
+    if (attempts > 60) return; 
+    var metingEl = document.querySelector('meting-js');
+    if (!metingEl) { setTimeout(tryAddLocal, 500); return; }
+    var ap = metingEl.aplayer || metingEl.ap || (window.aplayers && window.aplayers[0]);
+    if (!ap || !ap.list || !ap.list.audios) { setTimeout(tryAddLocal, 500); return; }
+    
+    var existingNames = ap.list.audios.map(function (a) { return a.name; });
+    var toAdd = localSongs.filter(function (s) { return existingNames.indexOf(s.name) === -1; });
+    if (toAdd.length > 0) {
+      ap.list.add(toAdd);
+    }
+  }
+  if (document.readyState === 'complete' || document.readyState === 'interactive') {
+    setTimeout(tryAddLocal, 1000);
+  } else {
+    document.addEventListener('DOMContentLoaded', function () { setTimeout(tryAddLocal, 1000); });
+  }
+})();
+</script>
+<script src="https://cdn.bootcdn.net/ajax/libs/canvas-nest.js/1.0.1/canvas-nest.min.js"></script>
+  </body>
+</html>
