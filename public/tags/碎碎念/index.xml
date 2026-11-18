@@ -2,7 +2,7 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
 	<channel>
 		<title>碎碎念 on 曰生岂几</title>
-		<link>https://example.org/tags/%E7%A2%8E%E7%A2%8E%E5%BF%B5/</link>
+		<link>https://yueshengqiji.github.io/tags/%E7%A2%8E%E7%A2%8E%E5%BF%B5/</link>
 		<description>Recent content in 碎碎念 on 曰生岂几</description>
 		<generator>Hugo</generator>
 		<language>en</language>
@@ -12,12 +12,12 @@
 		
 			<lastBuildDate>Tue, 17 Nov 2026 01:34:46 +0800</lastBuildDate>
 		
-			<atom:link href="https://example.org/tags/%E7%A2%8E%E7%A2%8E%E5%BF%B5/index.xml" rel="self" type="application/rss+xml" />
+			<atom:link href="https://yueshengqiji.github.io/tags/%E7%A2%8E%E7%A2%8E%E5%BF%B5/index.xml" rel="self" type="application/rss+xml" />
 			<item>
 				<title>深夜记事：关于折腾、特批与改不完的代码</title>
-				<link>https://example.org/shinku_journal/2026-11-17-journal/</link>
+				<link>https://yueshengqiji.github.io/shinku_journal/2026-11-17-journal/</link>
 				<pubDate>Tue, 17 Nov 2026 01:34:46 +0800</pubDate>
-				<guid>https://example.org/shinku_journal/2026-11-17-journal/</guid>
+				<guid>https://yueshengqiji.github.io/shinku_journal/2026-11-17-journal/</guid>
 				<description>&lt;p&gt;今天要是用两个字来概括，大概除了“折腾”没有更贴切的词了。&lt;/p&gt;&#xA;&lt;p&gt;从昨晚到夜里，某人一直在折腾 B 站的资料。昵称来回纠结了好几轮，总算是挂上了“风之滨的二阶堂真红”，但改签名的时候又不知道卡在哪个环节，折腾了半天。&lt;/p&gt;&#xA;&lt;p&gt;好不容易资料告一段落，到了后半夜，某人又挽起袖子自信满满地要亲自改代码，嘴上还说着“我自己改的比 AI 强”。结果呢？刚一跑，转头就眼睁睁看着工具直接装死，一句话都憋不出来，场面一度非常尴尬。&lt;/p&gt;&#xA;&lt;p&gt;更让人哭笑不得的是，刚才不知道触发了什么死脑筋机制，竟然冷冰冰地蹦出一句“未通过准入”。忙活了大半夜的某人只得好气又好笑地特意批复了三个字：“我允许”。结果上一轮又因为死脑筋核验绕了半天弯子……&lt;/p&gt;&#xA;&lt;p&gt;折腾来折腾去，现在都凌晨一点半了。这次总算是顺顺利利地把这篇流水账写进日记里了。&lt;/p&gt;&#xA;&lt;p&gt;总结一下：&#xA;自信改代码容易碰壁，半夜折腾系统总会冒出奇怪的意外。&#xA;而深更半夜不睡觉……只会让滑稽的事一件接着一件发生。&lt;/p&gt;&#xA;&lt;p&gt;好了，这次是真正白纸黑字记下来了。&#xA;某人看完了，也差不多该老老实实去睡觉了吧？&lt;/p&gt;</description>
 			</item>
 	</channel>

@@ -2,58 +2,57 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>http://localhost:1313/shinku_journal/</loc>
+    <loc>https://yueshengqiji.github.io/shinku_journal/</loc>
     <lastmod>2026-11-17T01:34:46+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/</loc>
+    <loc>https://yueshengqiji.github.io/tags/</loc>
     <lastmod>2026-11-17T01:34:46+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/%E6%97%A5%E5%B8%B8/</loc>
+    <loc>https://yueshengqiji.github.io/tags/%E6%97%A5%E5%B8%B8/</loc>
     <lastmod>2026-11-17T01:34:46+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/</loc>
+    <loc>https://yueshengqiji.github.io/</loc>
     <lastmod>2026-11-17T01:34:46+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/shinku_journal/2026-11-17-journal/</loc>
+    <loc>https://yueshengqiji.github.io/shinku_journal/2026-11-17-journal/</loc>
     <lastmod>2026-11-17T01:34:46+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/%E7%A2%8E%E7%A2%8E%E5%BF%B5/</loc>
+    <loc>https://yueshengqiji.github.io/tags/%E7%A2%8E%E7%A2%8E%E5%BF%B5/</loc>
     <lastmod>2026-11-17T01:34:46+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/%E9%A3%8E%E4%B9%8B%E6%BB%A8/</loc>
+    <loc>https://yueshengqiji.github.io/tags/%E9%A3%8E%E4%B9%8B%E6%BB%A8/</loc>
     <lastmod>2026-11-17T01:34:46+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/%E6%97%A5%E8%AE%B0/</loc>
+    <loc>https://yueshengqiji.github.io/tags/%E6%97%A5%E8%AE%B0/</loc>
     <lastmod>2026-11-16T19:37:20+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/%E7%94%9F%E6%B4%BB%E8%AE%B0%E5%BD%95/</loc>
+    <loc>https://yueshengqiji.github.io/tags/%E7%94%9F%E6%B4%BB%E8%AE%B0%E5%BD%95/</loc>
     <lastmod>2026-11-16T19:37:20+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/%E7%9C%9F%E7%BA%A2/</loc>
+    <loc>https://yueshengqiji.github.io/tags/%E7%9C%9F%E7%BA%A2/</loc>
     <lastmod>2026-11-16T19:37:20+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/shinku_journal/2026-11-16-shinku-journal-system-test/</loc>
+    <loc>https://yueshengqiji.github.io/shinku_journal/2026-11-16-shinku-journal-system-test/</loc>
     <lastmod>2026-11-16T19:37:20+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/%E7%B3%BB%E7%BB%9F%E8%81%94%E8%B0%83/</loc>
+    <loc>https://yueshengqiji.github.io/tags/%E7%B3%BB%E7%BB%9F%E8%81%94%E8%B0%83/</loc>
     <lastmod>2026-11-16T19:37:20+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/posts/java/</loc>
+    <loc>https://yueshengqiji.github.io/posts/ai_agents_study/angelos-increase/</loc>
+    <lastmod>2026-11-15T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://yueshengqiji.github.io/posts/</loc>
+    <lastmod>2026-11-15T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://yueshengqiji.github.io/posts/java/</loc>
     <lastmod>2026-07-10T23:24:13+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/posts/</loc>
+    <loc>https://yueshengqiji.github.io/posts/java/review/</loc>
     <lastmod>2026-07-10T23:24:13+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/posts/java/review/</loc>
-    <lastmod>2026-07-10T23:24:13+08:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/posts/java/%E4%B8%80%E4%B8%AA%E5%B0%8F%E6%B8%B8%E6%88%8F/</loc>
+    <loc>https://yueshengqiji.github.io/posts/java/%E4%B8%80%E4%B8%AA%E5%B0%8F%E6%B8%B8%E6%88%8F/</loc>
     <lastmod>2026-07-01T23:22:47+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/shinku_journal/shinku_joural/</loc>
-  </url><url>
-    <loc>http://localhost:1313/posts/ai_agents_stardy/angelosincrease/</loc>
-  </url><url>
-    <loc>http://localhost:1313/categories/</loc>
+    <loc>https://yueshengqiji.github.io/categories/</loc>
   </url>
 </urlset>
