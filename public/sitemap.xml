@@ -2,16 +2,37 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://yueshengqiji.github.io/tags/agent%E6%9E%B6%E6%9E%84/</loc>
+    <lastmod>2026-11-18T13:30:00+08:00</lastmod>
+  </url><url>
+    <loc>https://yueshengqiji.github.io/categories/ai_agents_study/</loc>
+    <lastmod>2026-11-18T13:30:00+08:00</lastmod>
+  </url><url>
+    <loc>https://yueshengqiji.github.io/tags/angelos/</loc>
+    <lastmod>2026-11-18T13:30:00+08:00</lastmod>
+  </url><url>
+    <loc>https://yueshengqiji.github.io/posts/ai_agents_study/angelos-architecture-optimization/</loc>
+    <lastmod>2026-11-18T13:30:00+08:00</lastmod>
+  </url><url>
+    <loc>https://yueshengqiji.github.io/categories/</loc>
+    <lastmod>2026-11-18T13:30:00+08:00</lastmod>
+  </url><url>
+    <loc>https://yueshengqiji.github.io/posts/</loc>
+    <lastmod>2026-11-18T13:30:00+08:00</lastmod>
+  </url><url>
+    <loc>https://yueshengqiji.github.io/tags/</loc>
+    <lastmod>2026-11-18T13:30:00+08:00</lastmod>
+  </url><url>
+    <loc>https://yueshengqiji.github.io/</loc>
+    <lastmod>2026-11-18T13:30:00+08:00</lastmod>
+  </url><url>
+    <loc>https://yueshengqiji.github.io/tags/%E6%9E%B6%E6%9E%84%E4%BC%98%E5%8C%96/</loc>
+    <lastmod>2026-11-18T13:30:00+08:00</lastmod>
+  </url><url>
     <loc>https://yueshengqiji.github.io/shinku_journal/</loc>
     <lastmod>2026-11-17T01:34:46+08:00</lastmod>
   </url><url>
-    <loc>https://yueshengqiji.github.io/tags/</loc>
-    <lastmod>2026-11-17T01:34:46+08:00</lastmod>
-  </url><url>
     <loc>https://yueshengqiji.github.io/tags/%E6%97%A5%E5%B8%B8/</loc>
-    <lastmod>2026-11-17T01:34:46+08:00</lastmod>
-  </url><url>
-    <loc>https://yueshengqiji.github.io/</loc>
     <lastmod>2026-11-17T01:34:46+08:00</lastmod>
   </url><url>
     <loc>https://yueshengqiji.github.io/shinku_journal/2026-11-17-journal/</loc>
@@ -41,9 +62,6 @@
     <loc>https://yueshengqiji.github.io/posts/ai_agents_study/angelos-increase/</loc>
     <lastmod>2026-11-15T00:00:00+08:00</lastmod>
   </url><url>
-    <loc>https://yueshengqiji.github.io/posts/</loc>
-    <lastmod>2026-11-15T00:00:00+08:00</lastmod>
-  </url><url>
     <loc>https://yueshengqiji.github.io/posts/java/</loc>
     <lastmod>2026-07-10T23:24:13+08:00</lastmod>
   </url><url>
@@ -52,7 +70,5 @@
   </url><url>
     <loc>https://yueshengqiji.github.io/posts/java/%E4%B8%80%E4%B8%AA%E5%B0%8F%E6%B8%B8%E6%88%8F/</loc>
     <lastmod>2026-07-01T23:22:47+08:00</lastmod>
-  </url><url>
-    <loc>https://yueshengqiji.github.io/categories/</loc>
   </url>
 </urlset>

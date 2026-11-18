@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Angelos 架构现状审视与四项优化建议 // 曰生岂几</title>
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.169.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="曰生岂几" />
+    <meta name="description" content="基于代码库与执行管线实测，系统梳理当前 Angelos 架构特征、核心瓶颈与四项落地优化建议" />
+    <link rel="stylesheet" href="/css/main.min.5b1fcc8902588589c4767187402a3c29f8b8d7a6fdef6d9f8f77045bb0d14fee.css" />
+    <link rel="stylesheet" href="/css/custom.css">
+    
+
+    
+    
+	<meta name="twitter:card" content="summary">
+	<meta name="twitter:title" content="Angelos 架构现状审视与四项优化建议">
+	<meta name="twitter:description" content="基于代码库与执行管线实测，系统梳理当前 Angelos 架构特征、核心瓶颈与四项落地优化建议">
+
+    <meta property="og:url" content="https://yueshengqiji.github.io/posts/ai_agents_study/angelos-architecture-optimization/">
+	<meta property="og:site_name" content="曰生岂几">
+	<meta property="og:title" content="Angelos 架构现状审视与四项优化建议">
+	<meta property="og:description" content="基于代码库与执行管线实测，系统梳理当前 Angelos 架构特征、核心瓶颈与四项落地优化建议">
+	<meta property="og:locale" content="en">
+	<meta property="og:type" content="article">
+		<meta property="article:section" content="posts">
+		<meta property="article:published_time" content="2026-11-18T13:30:00+08:00">
+		<meta property="article:modified_time" content="2026-11-18T13:30:00+08:00">
+		<meta property="article:tag" content="Angelos">
+		<meta property="article:tag" content="Agent架构">
+		<meta property="article:tag" content="架构优化">
+
+<style>
+.app-container { color: #000000 !important; }
+.app-container h1, .app-container h2, .app-container h3, 
+.app-container h4, .app-container h5, .app-container h6 { color: #000000 !important; }
+</style>
+<link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/aplayer/1.10.1/APlayer.min.css">
+<script src="https://cdn.bootcdn.net/ajax/libs/aplayer/1.10.1/APlayer.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/meting/2.0.1/Meting.min.js"></script>
+  </head>
+  <body>
+    
+    <div class="floating-ball" id="floatingBall">
+      <div class="floating-ball-trigger" onclick="document.getElementById('floatingBall').classList.toggle('expanded');"><img class="floating-ball-avatar" src="/avatar.jpg" alt="曰生岂几" /></div>
+      <div class="floating-ball-panel">
+        <span class="floating-ball-title">曰生岂几</span>
+        <nav class="floating-ball-menu">
+            <a class="floating-ball-menu-item" href="/">Home</a>
+               - 
+            
+            <a class="floating-ball-menu-item" href="/posts/">曰生岂几</a>
+               - 
+            
+            <a class="floating-ball-menu-item" href="/shinku_journal/">shinku_journal</a>
+               - 
+            
+            <a class="floating-ball-menu-item" href="/tags/">Tags</a>
+        </nav>
+        <p class="floating-ball-desc">you went made a breakfast,you wouldn&#39;t get in the shower time ,so we are running late to school trouble,that&#39;s great.</p>
+      </div>
+    </div>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">Angelos 架构现状审视与四项优化建议</h1>
+      <div class="post-meta">
+        <div>
+          <svg class="icon icon-calendar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>calendar</title><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+          Nov 18, 2026
+        </div>
+        <div>
+          <svg class="icon icon-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>clock</title><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+          2 min read
+        </div>
+        <div>
+          <svg class="icon icon-tag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>tag</title><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>
+              <a class="tag" href="/tags/angelos/">Angelos</a>
+              <a class="tag" href="/tags/agent%E6%9E%B6%E6%9E%84/">Agent架构</a>
+              <a class="tag" href="/tags/%E6%9E%B6%E6%9E%84%E4%BC%98%E5%8C%96/">架构优化</a>
+        </div>
+      </div>
+    </header>
+    <div class="post-content">
+      <h2 id="一-当前架构的核心特征与现状">一、 当前架构的核心特征与现状</h2>
+<ol>
+<li><strong>分层执行与严苛防御（Heavy Contract &amp; Defense-in-Depth）</strong>：
+<ul>
+<li>引入了详尽的任务契约（Task Contract）、独立回执账本（Ledger Receipts）、本地回答校验与安全边界防护（Ultra/Approval 隔离）。</li>
+<li>优势是操作可控性强、审计链完整、避免虚假完成；代价是执行协议和 Prompt 块较为繁复。</li>
+</ul>
+</li>
+<li><strong>上下文感知与有界预算（Working Budget &amp; Context Awareness）</strong>：
+<ul>
+<li>内置了 <code>working_budget</code> 触发压缩（Trigger 64k / Target 48k / Max 96k）、材料按需分页（<code>task_material_read</code>）以及执行路径的资源守卫（<code>max_bytes: 16MB</code>）。</li>
+</ul>
+</li>
+<li><strong>单向隔离的跨渠道与记忆体系（Cross-Channel &amp; Projected Memory）</strong>：
+<ul>
+<li>渠道间（群聊/私聊/控制台）具备严格的物理单向隔离，近期沉淀了「近期跨渠道交互交接浮标（Recent Cross-Channel Handoff）」与针对主管群聊发言的白名单记忆沉淀机制。</li>
+</ul>
+</li>
+<li><strong>全功能宿主工具集合（Monolithic Tool Set）</strong>：
+<ul>
+<li>注册了 50 个工具，可用 46 个，涵盖 Shell、文件、浏览器、桌面交互、音视频转换、代码补丁及日志审计等。每次执行均在 System Prompt 中全量注入这些工具的 Schema 与规则。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2 id="二-核心瓶颈与架构权衡trade-offs">二、 核心瓶颈与架构权衡（Trade-offs）</h2>
+<p>在实际运转中，目前的架构暴露出以下四个结构性痛点：</p>
+<ol>
+<li><strong>静态全量工具投射导致的 Context 膨胀与决策噪声</strong>：
+<ul>
+<li>46 个工具的 Schema 和配套约束规则一次性注入上下文，占用了数千 Token 的固定开销。</li>
+<li>工具越多，大模型在选择工具时的「选择面扩散」越严重（容易出现多余尝试或因 Schema 歧义引发空输出/报错）。</li>
+</ul>
+</li>
+<li><strong>协议与防御层过厚，对底层模型的指令遵循度要求过高</strong>：
+<ul>
+<li>包含了大量防重、单次生效、本地回答格式等显式约束规则。在主力模型（如 <code>gemini-3.8-flash-tiered</code> 或较轻量模型）遇到复杂多步上下文时，容易产生格式摩擦或空回复（如历史记录中曾出现的 <code>conversation_output_empty</code>）。</li>
+</ul>
+</li>
+<li><strong>记忆体系的“被动抽取”与“冷热孤岛”</strong>：
+<ul>
+<li>现在的记忆系统主要依赖：① 静态 Markdown 文件（<code>MEMORY/</code>）；② 近期对话浮标提取。</li>
+<li>缺少记忆的<strong>自动衰减机制</strong>和**关联聚类（Consolidation）**能力。随着使用周期增加，人工维护 Markdown 索引的成本线性上升，而模型被动检索容易出现漏检或检索冗余。</li>
+</ul>
+</li>
+<li><strong>子系统职责分散（<code>shinku</code> / <code>aozora</code> / <code>goozam</code>）</strong>：
+<ul>
+<li><code>shinku</code> 是实际运行的核心 Agent 与工具宿主；</li>
+<li><code>aozora</code> 偏向确定性决策内核（Kernel / Decider / Contracts）；</li>
+<li><code>goozam</code> 偏向学习、经验上下文与离线模型网关（Offline / Learning / Model Gateway）。</li>
+<li>三者之间边界稍显割裂，部分概念（如模型运行时与上下文管理）在各子系统中有相似抽象，缺乏清晰的主从流转关系。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2 id="三-四大方向优化建议按-roi-排序">三、 四大方向优化建议（按 ROI 排序）</h2>
+<h3 id="方向一动态工具投射与按需激活dynamic-tool-projection">方向一：动态工具投射与按需激活（Dynamic Tool Projection）</h3>
+<ul>
+<li><strong>优先级</strong>：高（ROI 最高，立竿见影提升速度与降低 Token 消耗）</li>
+<li><strong>核心思路</strong>：
+将工具按职责划分为 <strong>Core（基础常驻）</strong> 与 <strong>Domain Extensions（领域插件）</strong>：
+<ul>
+<li><strong>Core 级</strong>（约 8–10 个）：<code>workspace_read_lines</code>, <code>workspace_search</code>, <code>workspace_preview_patch</code>, <code>workspace_apply_patch</code>, <code>private_shell</code>, <code>read_service_logs</code>, <code>read_self_state</code>。</li>
+<li><strong>Domain 级</strong>（按需加载）：
+<ul>
+<li>浏览器集群（<code>browser_*</code>, <code>private_browser_*</code>, <code>tweet_*</code>）</li>
+<li>多媒体与下载集群（<code>private_media_*</code>, <code>private_download*</code>, <code>private_pdf_*</code>）</li>
+<li>外部查询与音乐（<code>private_web_search</code>, <code>private_netease_*</code>）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>实现方式</strong>：
+在 <code>agent_runtime/tool_context.py</code> 中引入任务路由或显式激活协议。当任务判定为纯工作区代码开发时，只下发 Core 工具集，将单轮 Prompt 减少 30%–50%，大幅降低模型选错工具的概率。</li>
+</ul>
+<h3 id="方向二瘦身协议与回执摘要化lean-contract--receipt-distillation">方向二：瘦身协议与回执摘要化（Lean Contract &amp; Receipt Distillation）</h3>
+<ul>
+<li><strong>优先级</strong>：高（直接改善执行稳定性）</li>
+<li><strong>核心思路</strong>：
+<ul>
+<li><strong>回执降维</strong>：历史工具的执行结果（尤其是包含大量输出的 Shell stdout、日志块或长文本）在进入下一轮推理历史时，由运行时做自动摘要和证据提炼（如只保留执行状态、核心事实、关键 diff 与哈希），而非把多轮长输出原样堆叠在历史消息中。</li>
+<li><strong>协议渐进式暴露</strong>：区分「简单问答/诊断模式」与「高危写操作/批量任务模式」。简单只读场景免除繁重的 Task Contract Schema 约束，仅在高危写操作或长链路任务中动态激活契约状态机。</li>
+</ul>
+</li>
+</ul>
+<h3 id="方向三冷热分层与自动化聚合的统一记忆总线unified-memory-bus">方向三：冷热分层与自动化聚合的“统一记忆总线”（Unified Memory Bus）</h3>
+<ul>
+<li><strong>优先级</strong>：中（决定长期陪伴与个性化体验的深度）</li>
+<li><strong>核心思路</strong>：
+重构短期浮标与长期记忆的生命周期，形成三层流转管道：
+<ol>
+<li><strong>L1 热记忆（Working Memory）</strong>：当前任务与会话上下文 + 近期跨渠道交接浮标（保留当前优秀的单向隔离机制）。</li>
+<li><strong>L2 温记忆（Episodic Memory / 经验池）</strong>：自动将完成的任务事实/主管偏好暂存在本地 SQLite/DuckDB（结构化包含：时间戳、主题、决策依据、有效性评分），定期在后台做归纳蒸馏。</li>
+<li><strong>L3 冷记忆（Semantic Knowledge / 规则与约束）</strong>：即现在的 <code>AGENTS.md</code> 和 <code>MEMORY/*.md</code>，只保留最高权威的长期约定与全局规则。</li>
+</ol>
+<ul>
+<li><strong>收益</strong>：避免每次手工编写和更新 Markdown 记忆索引，使跨会话、跨任务的上下文更自然顺畅。</li>
+</ul>
+</li>
+</ul>
+<h3 id="方向四分级路由引擎tiered-fast-path--deep-path-orchestration">方向四：分级路由引擎（Tiered Fast-path / Deep-path Orchestration）</h3>
+<ul>
+<li><strong>优先级</strong>：中长线架构演进</li>
+<li><strong>核心思路</strong>：
+结合 <code>goozam</code> 的模型网关与 <code>shinku</code> 的执行内核，建立双轨执行模型：
+<ul>
+<li><strong>Fast-path（敏捷快轨）</strong>：针对简单闲聊、状态查询、只读搜索、轻量校验，直接由低延迟小模型走 Direct Reply 闭环，毫秒级响应。</li>
+<li><strong>Deep-path（深度慢轨）</strong>：针对复杂代码重构、跨模块架构变更、长故障排查，启动带完整任务契约、计划拆解与分级验证的慢思考循环。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="四-实施路径建议">四、 实施路径建议</h2>
+<p>建议采取**“先外围治理、再管线瘦身、后记忆总线”**的渐进演化策略：</p>
+<ol>
+<li><strong>第一阶段（工具与 Prompt 瘦身）</strong>：
+<ul>
+<li>实施<strong>方向一（动态工具投射）</strong>：在 <code>tool_context.py</code> 实现白名单/模式化过滤，代码开发任务只挂载 Workspace + Shell 工具。</li>
+<li>验证指标：单轮 System Prompt Token 降低幅度、选工具错误率降低情况。</li>
+</ul>
+</li>
+<li><strong>第二阶段（历史回执摘要优化）</strong>：
+<ul>
+<li>优化 <code>native_messages.py</code> 与 <code>context.py</code> 中的历史消息装配逻辑，长输出回执保留核心事实与哈希指纹，防止上下文无意义打满。</li>
+</ul>
+</li>
+<li><strong>第三阶段（整合子系统与记忆机制）</strong>：
+<ul>
+<li>梳理 <code>goozam</code> / <code>aozora</code> 与 <code>shinku</code> 内部的重叠模块，建立统一的温记忆提取后台任务。</li>
+</ul>
+</li>
+</ol>
+
+    </div>
+    <div class="post-footer">
+      
+    </div>
+  </article>
+
+    </main>
+    <a href="/" class="back-home-btn" title="返回首页">← 首页</a>
+<meting-js
+  server="netease"
+  type="playlist"
+  id="18597791155"
+  fixed="true"
+  theme="#57cc8a"
+  list-folded="true"
+  order="random"
+  autoplay="false">
+</meting-js>
+<script>
+
+(function () {
+  var localSongs = [
+    {
+      name: 'Pictures of the Past',
+      artist: 'James Primate',
+      url: '/James Primate - Pictures of the Past.mp3',
+      cover: '/avatar.jpg'
+    },
+    {
+      name: 'Bio-Engineering',
+      artist: 'Lydia Esrig, James Primate',
+      url: '/music/Lydia Esrig,James Primate - Bio-Engineering.mp3',
+      cover: '/avatar.jpg'
+    }
+  ];
+  var attempts = 0;
+  function tryAddLocal() {
+    attempts++;
+    if (attempts > 60) return; 
+    var metingEl = document.querySelector('meting-js');
+    if (!metingEl) { setTimeout(tryAddLocal, 500); return; }
+    var ap = metingEl.aplayer || metingEl.ap || (window.aplayers && window.aplayers[0]);
+    if (!ap || !ap.list || !ap.list.audios) { setTimeout(tryAddLocal, 500); return; }
+    
+    var existingNames = ap.list.audios.map(function (a) { return a.name; });
+    var toAdd = localSongs.filter(function (s) { return existingNames.indexOf(s.name) === -1; });
+    if (toAdd.length > 0) {
+      ap.list.add(toAdd);
+    }
+  }
+  if (document.readyState === 'complete' || document.readyState === 'interactive') {
+    setTimeout(tryAddLocal, 1000);
+  } else {
+    document.addEventListener('DOMContentLoaded', function () { setTimeout(tryAddLocal, 1000); });
+  }
+})();
+</script>
+<script src="https://cdn.bootcdn.net/ajax/libs/canvas-nest.js/1.0.1/canvas-nest.min.js"></script>
+  </body>
+</html>
