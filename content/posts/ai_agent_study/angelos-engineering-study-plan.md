@@ -24,7 +24,13 @@ description: "一份围绕真实 Agent 宿主的六周练习。沿一条请求�
 | 5 | 工具已经执行，进程却在记账前退出，怎么办？ | 一组中断与重试实验 |
 | 6 | 哪种上下文策略更适合我的编码任务？ | 一份可复跑的对照实验与取舍说明 |
 
+### 开始前的 Python 自测（可选）
+
+拿第 3 周的两行样本写一个函数，算出加权缓存命中率，再写三个测试：总输入为零时如何表示；上游缺少命中字段时如何标记；同一任务有两笔请求时怎样合计。先自己写下三个预期结果，再运行测试。能独立完成就直接开始第 1 周。若卡在某一步，可以选学 Harvard **CS50’s Introduction to Programming with Python（CS50P）** 的相应单元：处理异常看第 3 周，从文件读取样本看第 6 周，把边界条件写成可重复的检查则从第 5 周开始。[Exceptions](https://cs50.harvard.edu/python/weeks/3/) · [Unit Tests](https://cs50.harvard.edu/python/weeks/5/) · [File I/O](https://cs50.harvard.edu/python/weeks/6/)
+
 ## 第 1 周 · 沿着一次请求走到底
+
+**第 1～3 周主课：MIT · The Missing Semester，2026 版。** 第一个晚上先读 *Debugging and Profiling* 的 **Timing** 和 **Resource Monitoring**，分清墙上时钟经过的时间、用户态 CPU 时间和内核态 CPU 时间。第二个晚上挑一次慢调用，先写下自己认为最耗时的步骤，再记录各段时间。到第 3 周学 **Visualizing Performance Data** 时，手里就有一个值得用 profiler 追下去的问题。[MIT 讲义、录像与练习](https://missing.csail.mit.edu/2026/debugging-profiling/)
 
 **练习对象是“我现在用哪个模型”。** 同一个问题可以指宿主的全局默认值、某个会话保存的选择，或一笔已经发出的请求。一个回答在第一层正确，在第三层仍可能答非所问。
 
@@ -65,9 +71,13 @@ journalctl --user -u shinku-angelos.service --since '15 minutes ago' --no-pager
 
 接着自己复算开篇的例子：第一笔有 233 个未命中 tokens，第二笔有 6,950 个；第二笔的总输入又少了 68,547。若要讨论费用，还得知道这条线路对命中输入、未命中输入和输出的计价。若要解释“怎么这么慢”，给本地工具、模型等待和重试等待分别计时；并行调用记录起止时间，不能把重叠的等待全部相加当作用户等待时间。
 
-**过关标准：** 能挑出一次“百分比变差，但输入明显变短”的请求，讲清哪些成本可由现有记录推出，哪些还需要价格或时间信息。遇到本地工具慢，再用 profiler 找耗时函数。[MIT Missing Semester · Debugging and Profiling](https://missing.csail.mit.edu/2020/debugging-profiling/)
+**过关标准：** 能挑出一次“百分比变差，但输入明显变短”的请求，讲清哪些成本可由现有记录推出，哪些还需要价格或时间信息。
+
+**把 MIT 的性能分析用在一次慢搜索上。** 在同一个合成工作区查同一个文件名，一组限定项目子目录，另一组从外层根目录开始。先单独计时目录遍历，再计时完整搜索工具；每组记下扫描条目、鉴权调用和数据库查询的次数。用课上介绍的 `hyperfine` 在相同预热条件下重复运行，观察各次耗时的波动。最后挑一个耗时函数，写清它是单次调用昂贵，还是因为每个条目都调用一次而积累了开销。
 
 ## 第 4 周 · 画状态机，给“继续”一个准确含义
+
+**第 4～5 周主课：剑桥 · Distributed Systems，Martin Kleppmann。** 先听 **1.3 Remote Procedure Calls**。画出工具调用的“发送请求 → 执行操作 → 返回应答”，在箭头上分别标出请求丢失和应答丢失。再听 **2.4 Fault Tolerance**，在图上写清客户端、宿主和工具各自能观察到哪些事件。做第 5 周实验时，把这张图放在手边：两种情况在 CLI 里都可能只显示一次超时。[剑桥课程与讲义](https://www.cl.cam.ac.uk/teaching/2122/ConcDisSys/materials.html) · [1.3 RPC 录像](https://www.youtube.com/watch?v=S2osKiqQG9s) · [2.4 Fault Tolerance 录像](https://www.youtube.com/watch?v=43TDfUNsM3E)
 
 从终端重新出现输入提示符这个现象入手。客户端可能已经停止观察，后台任务仍在跑；任务也可能确实暂停，正在等回答。给两种情况各做一次离线复现，记录「谁持有状态、谁能改、另一个组件怎样知道」。
 
@@ -95,7 +105,21 @@ journalctl --user -u shinku-angelos.service --since '15 minutes ago' --no-pager
 
 **过关标准：** 分别出示操作 ID、下游最终计数和宿主状态。再模拟用户快速点两次恢复，验证重复点击也不会造成第二次副作用。
 
+**进阶选做：MIT 6.5840 · Lab 2, Key/Value Server。** 如果计数器实验让你想继续追问“到底怎样保证一次写入最多生效一次”，可以做这一题。原实验用 Go 实现单机键值服务，在网络不可靠、客户端可能重发请求的条件下，用版本号约束 `Put`。重点观察第一次写入已成功、应答丢失、重发时版本不匹配的情形：服务端能阻止重复写入，客户端此时又能向用户确认多少？沿用 Python 学习路线的读者，也可以直接用上一节的计数器重现这条时间线。[MIT 6.5840 实验说明](https://pdos.csail.mit.edu/6.824/labs/lab-kvsrv1.html)
+
 ## 第 6 周 · 做一次能据此决策的上下文实验
+
+**本周选课：LangChain Academy · Agent Observability & Evaluation。** 先看 Module 1 的 **Analyzing your Agent**，练习沿一次请求找到模型和工具各自做了什么。Module 2 依次选 **Creating Datasets**、**Running Experiments**、**Code-based Eval**。课程用 LangSmith 演示；在 Angelos 上，我会从 SQLite 账本挑样本，把判定条件写进现有测试。[课程与章节目录](https://academy.langchain.com/courses/building-reliable-agents)
+
+先为“继续”建三个样本。每个样本同时保存前情、用户原话和预期行为；只存最后两个字，评测者自己也无法判断答对没有。
+
+| 前情与输入 | 核对哪条记录 |
+| --- | --- |
+| 上轮正在解释两个方案，用户说“继续讲第二个” | 取回的是哪一轮答复，是否解释了第二个方案 |
+| 一项写入任务中断，用户显式选择该轮恢复 | 恢复指向的任务 ID，已完成写入是否被重复执行 |
+| 任务仍在后台运行，用户重新接回观察 | 是否接回原任务，重新观察有没有额外派发工具 |
+
+后两项可以用程序断言。第一项的引用也可以自动检查，解释是否准确则对照上轮的第二个方案读一遍。这样既能发现“执行错了”，也能发现“取对了记录却答错了”。
 
 选一个小型编码任务，例如修改 CLI 帮助、补一个针对性测试并交付。固定源码起点、任务文本、模型版本和工具目录。比较两种输入方式：A 在新轮次附上上一项任务的摘要；B 默认只发当前请求，需要旧信息时回读。两种方式都做下面两种场景：
 
